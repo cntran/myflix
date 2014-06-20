@@ -4,11 +4,11 @@
   = if logged_in?
     %ul.col-md-4.clearfix
       %li= link_to "Videos"
-      %li= link_to "My Queue"
+      %li= link_to "My Queue", my_queue_path
       %li= link_to "People"
     %form{class: "col-md-5 navbar-form", action: search_videos_path, method: "get"} 
       .form-group
-        %input.form-control(type="text" name="title" placeholder="Search for videos here")
+        %input.form-control(type="text" name="search_term" placeholder="Search for videos here")
       %button.btn.btn-default(type="submit") Search
     #user_links.pull-right
       %ul
