@@ -44,6 +44,39 @@ describe Video do
 
   end
 
+
+  describe "#average_rating" do
+    
+    it "returns 0 if there are no ratings" do
+      video = Fabricate(:video)
+      rating = video.average_rating
+      expect(rating).to eq(0)
+    end
+
+    it "returns the rating if there is one rating" do
+      video = Fabricate(:video)
+      review = Fabricate(:review, rating: 1)
+      video.reviews << review
+      rating = video.average_rating
+      expect(rating).to eq(1)
+    end
+
+    it "returns an average over all ratings if there is more than one rating" do
+      video = Fabricate(:video)
+      review1 = Fabricate(:review)
+      review2 = Fabricate(:review)
+      video.reviews = [review1, review2]
+      
+      calculated_rating = (review1.rating + review2.rating).to_f / video.reviews.count
+      calculated_rating = calculated_rating.round(1)
+
+      rating = video.average_rating
+      expect(rating).to eq(calculated_rating)
+
+    end
+
+  end
+
 end
 
 

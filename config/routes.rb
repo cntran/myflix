@@ -9,14 +9,21 @@ Myflix::Application.routes.draw do
   get 'logout', to: 'sessions#destroy'
 
   get 'home', to: 'videos#index'
-  get 'genre', to: 'categories#show'
 
   resources :videos do
+
+    resources :reviews, only: [:create]
+
     collection do
       get 'search'
     end
   end
 
-  resources :categories
+  resources :categories, path: "genre"
   resources :users
+
+  get 'my_queue', to: 'queue_items#index'
+  post 'my_queue', to: 'queue_items#create'
+  resources :queue_items, only: [:destroy]
+
 end
